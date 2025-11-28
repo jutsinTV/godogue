@@ -9,12 +9,9 @@ const player_definition: EntityDefinition = preload ("res://src/Entities/Actors/
 @onready var map: Map = $Map
 
 func _ready() -> void:
-	var player_start_pos: Vector2i = Grid.world_to_grid(get_viewport_rect().size.floor() / 2)
-	player = Entity.new(player_start_pos, player_definition)
+	player = Entity.new(Vector2i.ZERO, player_definition)
 	entities.add_child(player)
-	var npc := Entity.new(player_start_pos + Vector2i.RIGHT, player_definition)
-	npc.modulate = Color.ORANGE_RED
-	entities.add_child(npc)
+	map.generate(player)
 
 func get_map_data() -> MapData:
 	return map.map_data

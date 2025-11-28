@@ -4,6 +4,7 @@ extends Sprite2D
 var _definition: TileDefinition
 
 func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
+	visible = false
 	centered = false
 	position = Grid.grid_to_world(grid_position)
 	set_tile_type(tile_definition)
@@ -18,3 +19,11 @@ func is_walkable() -> bool:
 
 func is_transparent() -> bool:
 	return _definition.is_transparent
+
+var is_explored: bool = false:
+	set(value):
+		is_explored = value
+		if is_explored and not visible:
+			visible = true
+
+https://selinadev.github.io/08-rogueliketutorial-04/#:~:text=var%20is%5Fin%5Fview%3A%20bool%20%3D%20false%3A
