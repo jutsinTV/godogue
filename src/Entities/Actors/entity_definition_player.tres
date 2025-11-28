@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=4 format=3 uid="uid://c8ts0of7a8mpv"]
+
+[ext_resource type="Script" uid="uid://lekkhblmsemg" path="res://src/Entities/entity_definition.gd" id="1_w0sm0"]
+[ext_resource type="Texture2D" uid="uid://bbt48glljk668" path="res://assets/images/tileset.png" id="2_04quj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goigo"]
+atlas = ExtResource("2_04quj")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_w0sm0")
+texture = SubResource("AtlasTexture_goigo")
+color = Color(7.70092e-07, 0.67523956, 0.9410967, 1)
+metadata/_custom_type_script = "uid://lekkhblmsemg"
