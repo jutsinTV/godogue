@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=4 format=3 uid="uid://b1nwckwpopcqc"]
+
+[ext_resource type="Script" uid="uid://lekkhblmsemg" path="res://src/Entities/entity_definition.gd" id="1_tvnr0"]
+[ext_resource type="Texture2D" uid="uid://bbt48glljk668" path="res://assets/images/tileset.png" id="2_srh87"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjw1q"]
+atlas = ExtResource("2_srh87")
+region = Rect2(240, 64, 16, 16)
+
+[resource]
+script = ExtResource("1_tvnr0")
+name = "Orc"
+texture = SubResource("AtlasTexture_cjw1q")
+color = Color(0.2898, 0.42, 0.16799998, 1)
+metadata/_custom_type_script = "uid://lekkhblmsemg"

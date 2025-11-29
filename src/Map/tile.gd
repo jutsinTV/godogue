@@ -26,4 +26,9 @@ var is_explored: bool = false:
 		if is_explored and not visible:
 			visible = true
 
-https://selinadev.github.io/08-rogueliketutorial-04/#:~:text=var%20is%5Fin%5Fview%3A%20bool%20%3D%20false%3A
+var is_in_view: bool = false:
+	set(value):
+		is_in_view = value
+		modulate = _definition.color_lit if is_in_view else _definition.color_dark
+		if is_in_view and not is_explored:
+			is_explored = true

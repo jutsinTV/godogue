@@ -10,6 +10,14 @@ extends Node
 @export var room_max_size: int = 10
 @export var room_min_size: int = 6
 
+@export_category("Monsters RNG")
+@export var max_monsters_per_room = 2
+
+const entity_types ={
+	"orc": preload("res://src/Entities/Actors/entity_definition_orc.tres"),
+	"troll": preload("res://src/Entities/Actors/entity_definition_troll.tres"),
+}
+
 var _rng:= RandomNumberGenerator.new()
 
 func _ready() -> void:
@@ -22,7 +30,8 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 			_carve_tile(dungeon, x, y)
 
 func generate_dungeon(player: Entity) -> MapData:
-	var dungeon := MapData.new(map_width, map_height)
+	var dungeon := MapData.new(map_width, map_height, player)
+	dungeon.entities.append(player)
 	
 	var rooms: Array[Rect2i] = []
 	
@@ -48,9 +57,12 @@ func generate_dungeon(player: Entity) -> MapData:
 	
 		if rooms.is_empty():
 			player.grid_position = new_room.get_center()
+			player.map_data = dungeon
 		else:
 			_tunnel_between(dungeon, rooms.back().get_center(), new_room.get_center())
 			
+		_place_entities(dungeon, new_room)
+		
 		rooms.append(new_room)
 	
 	return dungeon
@@ -79,3 +91,25 @@ func _carve_tile(dungeon: MapData, x: int, y: int) -> void:
 	var tile_position = Vector2i(x,y)
 	var tile: Tile = dungeon.get_tile(tile_position)
 	tile.set_tile_type(dungeon.tile_types.floor)
+
+func _place_entities(dungeon: MapData, room: Rect2i) -> void:
+	var number_of_monsters: int = _rng.randi_range(0, max_monsters_per_room)
+	
+	for _i in number_of_monsters:
+		var x: int = _rng.randi_range(room.position.x + 1, room.end.x -1)
+		var y: int = _rng.randi_range(room.position.y + 1, room.end.y -1)
+		var new_entity_position := Vector2i(x,y)
+		
+		var can_place = true
+		for entity in dungeon.entities:
+			if entity.grid_position == new_entity_position:
+				can_place = false
+				break
+				
+		if can_place:
+			var new_entity: Entity
+			if _rng.randf() < 0.8:
+				new_entity = Entity.new(dungeon, new_entity_position, entity_types.orc)
+			else:
+				new_entity = Entity.new(dungeon, new_entity_position, entity_types.troll)
+			dungeon.entities.append(new_entity)
