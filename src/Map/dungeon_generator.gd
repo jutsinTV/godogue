@@ -11,7 +11,7 @@ extends Node
 @export var room_min_size: int = 6
 
 @export_category("Monsters RNG")
-@export var max_monsters_per_room = 2
+@export var max_monsters_per_room = 3
 
 const entity_types ={
 	"orc": preload("res://src/Entities/Actors/entity_definition_orc.tres"),
@@ -65,6 +65,7 @@ func generate_dungeon(player: Entity) -> MapData:
 		
 		rooms.append(new_room)
 	
+	dungeon.setup_pathfinding()
 	return dungeon
 
 func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> void:

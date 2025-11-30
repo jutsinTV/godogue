@@ -28,6 +28,5 @@ func _physics_process(_delta: float) -> void:
 
 func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:
-		if entity == player:
-			continue
-		print("The %s wonders when it will get to take a real turn." % entity.get_entity_name())
+		if entity.is_alive() and entity != player:
+			entity.ai_component.perform()
