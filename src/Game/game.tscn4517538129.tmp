@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cqow47bch5ocs"]
+[gd_scene load_steps=16 format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://bi3w2wnjq3x7j" path="res://src/Game/game.gd" id="1_k6qo2"]
 [ext_resource type="Script" uid="uid://bnxh4mw777ibu" path="res://src/Game/EventHandlers/input_handler.gd" id="2_le6wr"]
@@ -7,13 +7,9 @@
 [ext_resource type="Script" uid="uid://byy74lcmnxme6" path="res://src/Map/map.gd" id="4_bob6j"]
 [ext_resource type="Script" uid="uid://ptdqdjd7uew8" path="res://src/Map/dungeon_generator.gd" id="5_3s8ir"]
 [ext_resource type="Script" uid="uid://depmfyxeqcshm" path="res://src/Map/field_of_view.gd" id="5_7m6cs"]
-[ext_resource type="Script" uid="uid://b5muqlh6114qg" path="res://src/Game/EventHandlers/history_viewer_input_handler.gd" id="5_ysswf"]
 [ext_resource type="Texture2D" uid="uid://bbt48glljk668" path="res://assets/images/tileset.png" id="8_lx5th"]
 [ext_resource type="FontFile" uid="uid://bj0kwbywfbs01" path="res://assets/fonts/Kenney Pixel.ttf" id="9_0qd4d"]
-[ext_resource type="Script" uid="uid://dgsjj41xx6e3q" path="res://src/GUI/mouseover_checker.gd" id="9_4te78"]
 [ext_resource type="Script" uid="uid://cj7anrglfhxgo" path="res://src/GUI/hp_display.gd" id="9_mkl7w"]
-[ext_resource type="Script" uid="uid://d4dwrpggq2qm" path="res://src/GUI/message_log.gd" id="11_drysr"]
-[ext_resource type="LabelSettings" uid="uid://dgxpn4pxog2jy" path="res://assets/resources/mouseover_label_settings.tres" id="13_x8pff"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0qd4d"]
 atlas = ExtResource("8_lx5th")
@@ -38,7 +34,6 @@ bg_color = Color(0, 0.49803922, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ysswf"]
 font = ExtResource("9_0qd4d")
-font_size = 20
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
@@ -83,11 +78,6 @@ script = ExtResource("3_sag4g")
 [node name="GameOverInputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("3_7m6cs")
 
-[node name="HistoryViewerInputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
-script = ExtResource("5_ysswf")
-messages_panel_path = NodePath("../../../../../InfoBar/MessagesPanel")
-message_log_path = NodePath("../../../../../InfoBar/MessagesPanel/MessageLog")
-
 [node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("4_bob6j")
 
@@ -100,9 +90,6 @@ script = ExtResource("5_7m6cs")
 [node name="Tiles" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 
 [node name="Entities" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
-
-[node name="MouseoverChecker" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
-script = ExtResource("9_4te78")
 
 [node name="Camera2D" type="Camera2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 zoom = Vector2(2, 2)
@@ -139,27 +126,10 @@ label_settings = SubResource("LabelSettings_ysswf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MouseoverLabel" type="Label" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 10
-label_settings = ExtResource("13_x8pff")
-
 [node name="MessagesPanel" type="PanelContainer" parent="VBoxContainer/InfoBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_mkl7w")
 
-[node name="MessageLog" type="ScrollContainer" parent="VBoxContainer/InfoBar/MessagesPanel"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 3
-script = ExtResource("11_drysr")
-
-[node name="MessageList" type="VBoxContainer" parent="VBoxContainer/InfoBar/MessagesPanel/MessageLog"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[connection signal="player_created" from="VBoxContainer/SubViewportContainer/SubViewport/Game" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="initialize"]
-[connection signal="entities_focussed" from="VBoxContainer/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/MouseoverLabel" method="set_text"]
+[connection signal="player_created" from="VBoxContainer/SubViewportContainer/SubViewport/Game" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HpDisplay" method="_on_game_player_created"]
