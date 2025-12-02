@@ -29,9 +29,9 @@ func _physics_process(_delta: float) -> void:
 	var action: Action = input_handler.get_action(player)
 	if action:
 		var previous_player_position: Vector2i = player.grid_position
-		action.perform()
-		_handle_enemy_turns()
-		map.update_fov(player.grid_position)
+		if action.perform():
+			_handle_enemy_turns()
+			map.update_fov(player.grid_position)
 
 func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:
