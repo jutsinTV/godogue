@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1cq7iyelnm2t"]
+
+[ext_resource type="Script" uid="uid://bhsyc6lxwv1wt" path="res://src/GUI/InventoryaMenu/inventory_menu.gd" id="1_b4bg0"]
+[ext_resource type="Texture2D" uid="uid://bbt48glljk668" path="res://assets/images/tileset.png" id="1_mi8as"]
+[ext_resource type="FontFile" uid="uid://bj0kwbywfbs01" path="res://assets/fonts/Kenney Pixel.ttf" id="2_b4bg0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qd4d"]
+atlas = ExtResource("1_mi8as")
+region = Rect2(240, 240, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rjp0f"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_0qd4d")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_03isg"]
+font = ExtResource("2_b4bg0")
+font_size = 20
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_fctvm"]
+color = Color(1, 1, 1, 1)
+
+[node name="InventoryMenu" type="CanvasLayer"]
+script = ExtResource("1_b4bg0")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_rjp0f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_03isg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_fctvm")
+
+[node name="InventoryList" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2

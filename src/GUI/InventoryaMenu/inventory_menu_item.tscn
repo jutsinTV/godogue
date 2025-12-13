@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://w2mvyecvw510"]
+
+[ext_resource type="FontFile" uid="uid://bj0kwbywfbs01" path="res://assets/fonts/Kenney Pixel.ttf" id="1_swsie"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cgawp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e62x3"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[node name="InventoryMenuButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("1_swsie")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cgawp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e62x3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_e62x3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_cgawp")
+theme_override_styles/focus = SubResource("StyleBoxFlat_e62x3")
+action_mode = 0
+shortcut_feedback = false
